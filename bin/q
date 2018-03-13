@@ -45,12 +45,30 @@ Clamp do
   protected
 
   def with_mqtt(&block)
+    connection = make_connection
+    yield connection
+  ensure
+    connection.disconnect if connection
+  end
+
+  private
+
+  def make_connection(retries = 10)
     config = {
       :host => host,
       :clean_session => !persistent?
     }
     config[:client_id] = client_id if client_id
-    MQTT::Client.connect(config, &block)
+    MQTT::Client.connect(config)
+  rescue Errno::ECONNREFUSED => e
+    if retries > 0
+      $stderr.puts "retrying connection"
+      retries -= 1
+      sleep 1
+      retry
+    else
+      raise e
+    end
   end
 
 end
