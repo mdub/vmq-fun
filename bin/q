@@ -11,6 +11,7 @@ Clamp do
 
   option ["-i", "--client-id"], "ID", "client ID"
   option ["-q", "--qos"], "QOS", "quality of service", type: Integer, default: 1
+  option ["-p", "--persistent"], :flag, "persistent connection"
 
   subcommand "pub", "publish" do
 
@@ -41,10 +42,13 @@ Clamp do
 
   end
 
-  private
+  protected
 
   def with_mqtt(&block)
-    config = { :host => host }
+    config = {
+      :host => host,
+      :clean_session => !persistent?
+    }
     config[:client_id] = client_id if client_id
     MQTT::Client.connect(config, &block)
   end
