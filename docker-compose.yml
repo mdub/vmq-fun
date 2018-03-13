@@ -6,9 +6,11 @@ services:
     build: vernemq
     environment:
       DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
+    hostname: vernemq
 
   dev:
     build: dev
+    hostname: dev
     depends_on:
       - vernemq
     volumes:
