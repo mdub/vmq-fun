@@ -49,5 +49,4 @@ Clamp do
     MQTT::Client.connect(config, &block)
   end
 
-
 end
