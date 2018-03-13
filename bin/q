@@ -1,0 +1,53 @@
+#! /usr/bin/env ruby
+
+require "clamp"
+require "mqtt"
+
+Clamp do
+
+  option ["-h", "--host"], "HOST", "MQTT server",
+         :default => "mqtt",
+         :environment_variable => "MQTT_HOST"
+
+  option ["-i", "--client-id"], "ID", "client ID"
+  option ["-q", "--qos"], "QOS", "quality of service", type: Integer, default: 1
+
+  subcommand "pub", "publish" do
+
+    parameter "TOPIC", "topic to publish to"
+
+    def execute
+      with_mqtt do |c|
+        $stdin.each_line do |line|
+          c.publish(topic, line.strip, retain = false, qos = qos)
+        end
+      end
+    end
+
+  end
+
+  subcommand "sub", "subscribe" do
+
+    parameter "TOPIC", "topic to subscribe to"
+
+    def execute
+      with_mqtt do |c|
+        c.subscribe(topic, qos)
+        c.get do |topic, message|
+          puts "#{topic}: #{message}"
+        end
+      end
+    end
+
+  end
+
+  private
+
+  def with_mqtt(&block)
+    config = { :host => host }
+    config[:client_id] = client_id if client_id
+    MQTT::Client.connect(config, &block)
+  end
+
+
+end

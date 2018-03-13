@@ -4,6 +4,10 @@ services:
 
   vernemq:
     build: vernemq
+    ports:
+      - 1883:1883
+    environment:
+      DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
 
   dev:
     image: ruby:2.5
@@ -14,6 +18,8 @@ services:
       - gem-cache:/usr/local/bundle
     working_dir: /work
     command: /bin/bash
+    environment:
+      MQTT_HOST: vernemq
 
 volumes:
   gem-cache: ~
