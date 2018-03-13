@@ -20,7 +20,7 @@ Clamp do
     def execute
       with_mqtt do |c|
         $stdin.each_line do |line|
-          c.publish(topic, line.strip, retain = false, qos = qos)
+          c.publish(topic, line.strip, false, qos)
         end
       end
     end
