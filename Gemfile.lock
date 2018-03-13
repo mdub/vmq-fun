@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    clamp (1.2.1)
+    mqtt (0.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  clamp
+  mqtt
+
+BUNDLED WITH
+   1.16.0
