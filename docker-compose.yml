@@ -4,8 +4,6 @@ services:
 
   vernemq:
     build: vernemq
-    ports:
-      - 1883:1883
     environment:
       DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
 
