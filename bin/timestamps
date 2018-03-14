@@ -6,7 +6,7 @@ require "time"
 Clamp do
 
   option ["-n", "--count"], "SECONDS", "number to generate", &method(:Integer)
-  option ["-d", "--delay"], "SECONDS", "delay between timestamps", &method(:Integer)
+  option ["-d", "--delay"], "SECONDS", "delay between timestamps", &method(:Float)
   option ["-f", "--filler"], "N", "append N bytes of filler", &method(:Integer)
 
   def execute

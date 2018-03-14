@@ -10,7 +10,7 @@ Clamp do
          :environment_variable => "MQTT_HOST"
 
   option ["-i", "--client-id"], "ID", "client ID"
-  option ["-q", "--qos"], "QOS", "quality of service", type: Integer, default: 1
+  option ["-q", "--qos"], "QOS", "quality of service", default: 1, &method(:Integer)
   option ["-p", "--persistent"], :flag, "persistent connection"
 
   subcommand "pub", "publish" do
