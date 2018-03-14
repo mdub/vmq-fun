@@ -87,3 +87,54 @@ Reconnecting `bob` caused messages to be delivered, _and_ disk usage to grow.
 ### Questions
 
 - Why does _consuming_ messages consume disk space?
+
+## Scene 3: try upgrading
+
+I tried upgrading VerneMQ to the latest version.
+
+```diff
+diff --git a/vernemq/Dockerfile b/vernemq/Dockerfile
+index 15c18a1..f072d40 100644
+--- a/vernemq/Dockerfile
++++ b/vernemq/Dockerfile
+@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
+     jq \
+     && rm -rf /var/lib/apt/lists/*
+
+-ENV VERNEMQ_VERSION 0.13.1
++ENV VERNEMQ_VERSION 1.3.0
+
+ # Defaults
+ ENV DOCKER_VERNEMQ_KUBERNETES_NAMESPACE default
+```
+
+then repeated the "Scene 2 " experiment.
+
+Initial disk usage was same as before.
+
+    root@vernemq:/# du -s /var/lib/vernemq/msgstore
+    532	/var/lib/vernemq/msgstore
+
+I got `bob` to subscribe (durably) again, and published some messages.
+
+    root@dev:/work# bin/q -i bob sub --persistent d/+
+
+    root@dev:/work# yes 123456789 | head -100 | bin/q pub d/123
+
+Disk usage grew.
+
+    root@vernemq:/# du -s /var/lib/vernemq/msgstore
+    600	/var/lib/vernemq/msgstore
+
+I took `bob` offline, and published some more.
+
+    root@dev:/work# yes 123456789 | head -100 | bin/q pub d/123
+
+    root@vernemq:/# du -s /var/lib/vernemq/msgstore
+    616	/var/lib/vernemq/msgstore
+
+I reconnected `bob` again.  Message came through, disk usage went up.
+
+### Conclusion
+
+- A simple upgrade to the latest version of VerneMQ (`1.3.0`) won't help.
