@@ -6,6 +6,7 @@ services:
     image: erlio/docker-vernemq:1.3.0
     environment:
       DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
+      DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL: "debug"
     hostname: vernemq
 
   dev:
