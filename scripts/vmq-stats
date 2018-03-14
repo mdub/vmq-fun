@@ -3,4 +3,4 @@
 du -s /var/lib/vernemq/msgstore
 echo ""
 
-vmq-admin metrics show | grep 'retain\|message\|mqtt' | grep -v "= 0"
+vmq-admin metrics show | grep -v "= 0"
