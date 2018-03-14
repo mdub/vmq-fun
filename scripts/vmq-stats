@@ -1,0 +1,6 @@
+#! /bin/sh
+
+du -s /var/lib/vernemq/msgstore
+echo ""
+
+vmq-admin metrics show | grep message

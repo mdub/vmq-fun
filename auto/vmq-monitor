@@ -1,0 +1,7 @@
+#! /bin/bash -eu
+#
+# Operate in development environment
+
+cd $(dirname $0)/..
+
+docker-compose exec vernemq watch /work/scripts/vmq-stats

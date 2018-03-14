@@ -1,5 +1,8 @@
 version: "3.2"
 
+volumes:
+  vmq_data: {}
+
 services:
 
   vernemq:
@@ -8,6 +11,8 @@ services:
       DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
       DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL: "debug"
     hostname: vernemq
+    volumes:
+      - .:/work
 
   dev:
     build: dev
