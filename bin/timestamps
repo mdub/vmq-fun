@@ -1,5 +1,26 @@
-#! /bin/sh
+#! /usr/bin/env ruby
 
-while true; do
-  date -I ns
-done
+require "clamp"
+require "time"
+
+Clamp do
+
+  option ["-n", "--count"], "SECONDS", "number to generate", &method(:Integer)
+  option ["-d", "--delay"], "SECONDS", "delay between timestamps", &method(:Integer)
+
+  def execute
+    if count
+      count.times { emit }
+    else
+      loop { emit }
+    end
+  end
+
+  private
+
+  def emit
+    puts Time.now.iso8601
+    sleep(delay) if delay
+  end
+
+end
