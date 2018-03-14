@@ -10,6 +10,7 @@ services:
     environment:
       DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
       DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL: "debug"
+      DOCKER_VERNEMQ_LEVELDB__MAXIMUM_MEMORY__PERCENT: "20"
     hostname: vernemq
     volumes:
       - .:/work
