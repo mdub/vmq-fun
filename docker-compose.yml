@@ -3,7 +3,7 @@ version: "3.2"
 services:
 
   vernemq:
-    build: vernemq
+    image: erlio/docker-vernemq:1.3.0
     environment:
       DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
     hostname: vernemq
