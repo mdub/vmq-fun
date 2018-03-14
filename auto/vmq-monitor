@@ -4,4 +4,4 @@
 
 cd $(dirname $0)/..
 
-docker-compose exec vernemq watch /work/scripts/vmq-stats
+docker-compose exec vernemq watch -n 0.5 /work/scripts/vmq-stats
