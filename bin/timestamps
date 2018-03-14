@@ -7,6 +7,7 @@ Clamp do
 
   option ["-n", "--count"], "SECONDS", "number to generate", &method(:Integer)
   option ["-d", "--delay"], "SECONDS", "delay between timestamps", &method(:Integer)
+  option ["-f", "--filler"], "N", "append N bytes of filler", &method(:Integer)
 
   def execute
     if count
@@ -19,7 +20,12 @@ Clamp do
   private
 
   def emit
-    puts Time.now.iso8601
+    message = Time.now.iso8601
+    if filler
+      message << " "
+      message << ("X" * filler)
+    end
+    puts message
     sleep(delay) if delay
   end
 
