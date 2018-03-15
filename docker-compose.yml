@@ -27,6 +27,7 @@ services:
     command: /bin/bash
     environment:
       MQTT_HOST: vernemq
+      PATH: /usr/local/bundle/bin:/usr/local/bin:/usr/bin:/bin:/work/bin
 
 volumes:
   gem-cache: ~
