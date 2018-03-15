@@ -18,4 +18,6 @@ Then (in _another_ `auto/dev` window), subscribe to messages like this:
 
     root@dev:/work# q sub firehose
 
+You can monitor the `vernemq` container, in a lo-fi way, with `auto/vmq-monitor`.
+
 Enjoy!
